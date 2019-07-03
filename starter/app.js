@@ -19,4 +19,17 @@ activePlayer = 0;
 dice = Math.floor(Math.random() * 6) + 1;
 console.log(dice);
 
-document.querySelector('#score-0').textContent = dice;
+//textContent only works with plain text
+//We call this a setter because we set the value
+document.querySelector('#current-' + activePlayer).textContent = dice;
+
+// <em> in this case needs to be in a string, otherwise it is not JS
+// document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>';
+
+//We call this a getter beceause it gets the value
+var x = document.querySelector('#score-0').textContent;
+console.log(x);
+
+//Here we are using querySelector to change our CSS properties
+//display is the CSS property and 'none' is the value
+document.querySelector('.dice').style.display = 'none';
