@@ -10,14 +10,14 @@ GAME RULES:
 */
 
 // Declaring var here means I don't need to below
-var scores, roundScore, activePlayer, dice;
+var scores, roundScore, activePlayer;
 
 scores = [0,0];
 roundScore = 0;
-activePlayer = 0;
+activePlayer = 1;
 
-dice = Math.floor(Math.random() * 6) + 1;
-console.log(dice);
+// dice = Math.floor(Math.random() * 6) + 1;
+// console.log(dice);
 
 //textContent only works with plain text
 //We call this a setter because we set the value
@@ -33,3 +33,23 @@ console.log(x);
 //Here we are using querySelector to change our CSS properties
 //display is the CSS property and 'none' is the value
 document.querySelector('.dice').style.display = 'none';
+
+//1. The first argument for the Event Listner is the type of event ('click')
+//2. The second argument is the function we want to call when the event happens
+       //There are two types of functions we can use here: 1) call back 2)anonymous
+       //Call back function - a function called by another function; or a function we pass through another function as an argument. 
+       //*This is used when we want to use the function again outside of the EventListener
+       //Anonymous function - a function that doesn't have a name, i.e. function(), and is only used for one particular use
+document.querySelector('.btn-roll').addEventListener('click', function () {
+
+    // 1. Random number
+    var dice = Math.floor(Math.random() * 6) + 1;
+
+    // 2. Display the result
+    var diceDOM = document.querySelector('.dice');
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + dice + '.png';
+
+
+    // 3. Update the round score
+});
