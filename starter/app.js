@@ -68,8 +68,8 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 
 
 
-// dice = Math.floor(Math.random() * 6) + 1;
-// console.log(dice);
+dice = Math.floor(Math.random() * 6) + 1;
+console.log(dice);
 
 //textContent only works with plain text
 //We call this a setter because we set the value
