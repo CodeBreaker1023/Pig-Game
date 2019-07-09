@@ -12,10 +12,7 @@ GAME RULES:
 // Declaring var here means I don't need to below
 var scores, roundScore, activePlayer;
 
-scores = [0,0];
-roundScore = 0;
-activePlayer = 0;
-
+init();
 
 //Here we are using querySelector to change our CSS properties
 //display is the CSS property and 'none' is the value
@@ -100,6 +97,24 @@ function nextPlayer() {
     document.querySelector('.player-1-panel').classList.toggle('active');
 
     document.querySelector('.dice').style.display = 'none';
+}
+
+document.querySelector('.btn-new').addEventListener('click', init);
+
+
+function init() {
+    scores = [0,0];
+    activePlayer = 0;
+    roundScore = 0;
+
+    document.querySelector('.dice').style.display = 'none';
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
 }
 
 
