@@ -58,8 +58,12 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         document.getElementById('current-1').textContent = '0';
 
         //Changes the active class which activates the gray background behind the current player
-        document.querySelector('.player-0-panel').classList.remove('active');
-        document.querySelector('.player-1-panel').classList.add('active');
+        // document.querySelector('.player-0-panel').classList.remove('active');
+        // document.querySelector('.player-1-panel').classList.add('active');
+
+        //Use toggle to switch between players
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
     }
 
 });
