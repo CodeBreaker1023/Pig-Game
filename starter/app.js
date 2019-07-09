@@ -49,27 +49,46 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
     } else {
         //next player
-        //Ternary operator is a shorthand if/else statement; ?=then :=else
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
-
-        //This resets the round and global score
-        document.getElementById('current-0').textContent = '0';
-        document.getElementById('current-1').textContent = '0';
-
-        //Changes the active class which activates the gray background behind the current player
-        // document.querySelector('.player-0-panel').classList.remove('active');
-        // document.querySelector('.player-1-panel').classList.add('active');
-
-        //Use toggle to switch between players
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
+        nextPlayer();
     }
-
 });
 
 
 
+
+document.querySelector('.btn-hold').addEventListener('click', function () {
+
+    //Add current score to global score
+    scores[activePlayer] += roundScore;
+
+    //Update UI 
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+
+    //Check if player won the game
+    nextPlayer();
+});
+
+
+function nextPlayer() {
+    //next player
+    //Ternary operator is a shorthand if/else statement; ?=then :=else
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
+
+    //This resets the round and global score
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    //Changes the active class which activates the gray background behind the current player
+    // document.querySelector('.player-0-panel').classList.remove('active');
+    // document.querySelector('.player-1-panel').classList.add('active');
+
+    //Use toggle to switch between players
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+
+    document.querySelector('.dice').style.display = 'none';
+}
 
 
 // dice = Math.floor(Math.random() * 6) + 1;
