@@ -10,7 +10,7 @@ GAME RULES:
 */
 
 // Declaring var here means I don't need to below
-var scores, roundScore, activePlayer;
+var scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
@@ -30,51 +30,55 @@ document.getElementById('current-1').textContent = '0';
        //*This is used when we want to use the function again outside of the EventListener
        //Anonymous function - a function that doesn't have a name, i.e. function(), and is only used for one particular use
 document.querySelector('.btn-roll').addEventListener('click', function () {
+    if (gamePlaying) {
+        // 1. Random number
+        var dice = Math.floor(Math.random() * 6) + 1;
 
-    // 1. Random number
-    var dice = Math.floor(Math.random() * 6) + 1;
+        // 2. Display the result
+        var diceDOM = document.querySelector('.dice');
+        diceDOM.style.display = 'block';
+        diceDOM.src = 'dice-' + dice + '.png';
 
-    // 2. Display the result
-    var diceDOM = document.querySelector('.dice');
-    diceDOM.style.display = 'block';
-    diceDOM.src = 'dice-' + dice + '.png';
-
-    // 3. Update the round score IF rolled number is not 1
-    if (dice !== 1) {
-        //add score
-        roundScore += dice; //i.e. roundScore = roundScore + dice
-        document.querySelector('#current-' + activePlayer).textContent = roundScore;
-    } else {
-        //next player
-        nextPlayer();
+        // 3. Update the round score IF rolled number is not 1
+        if (dice !== 1) {
+            //add score
+            roundScore += dice; //i.e. roundScore = roundScore + dice
+            document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        } else {
+            //next player
+            nextPlayer();
+        }
     }
+    
 });
 
 
 
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
+    if (gamePlaying) {
+        //Add current score to global score
+        scores[activePlayer] += roundScore;
 
-    //Add current score to global score
-    scores[activePlayer] += roundScore;
+        //Update UI 
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-    //Update UI 
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-
-    //Check if player won the game
-    if (scores[activePlayer] >= 100) {
-        //Announce winner
-        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-        //Remove di
-        document.querySelector('.dice').style.display = 'none';
-        //Highlight winner after winning
-        document.querySelector('.player-' + activePlayer +'-panel').classList.add('winner');
-        document.querySelector('.player-' + activePlayer +'-panel').classList.remove('active');
-
-    } else {
-    //Next player
-    nextPlayer();
+        //Check if player won the game
+        if (scores[activePlayer] >= 20) {
+            //Announce winner
+            document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+            //Remove di
+            document.querySelector('.dice').style.display = 'none';
+            //Highlight winner after winning
+            document.querySelector('.player-' + activePlayer +'-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer +'-panel').classList.remove('active');
+            gamePlaying = false;
+        } else {
+        //Next player
+        nextPlayer();
+        }
     }
+    
 });
 
 
@@ -106,6 +110,7 @@ function init() {
     scores = [0,0];
     activePlayer = 0;
     roundScore = 0;
+    gamePlaying = true;
 
     document.querySelector('.dice').style.display = 'none';
 
@@ -115,6 +120,11 @@ function init() {
     document.getElementById('current-1').textContent = '0';
     document.getElementById('name-0').textContent = 'Player 1';
     document.getElementById('name-1').textContent = 'Player 2';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
 }
 
 
