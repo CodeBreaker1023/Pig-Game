@@ -65,7 +65,19 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
     //Check if player won the game
+    if (scores[activePlayer] >= 100) {
+        //Announce winner
+        document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+        //Remove di
+        document.querySelector('.dice').style.display = 'none';
+        //Highlight winner after winning
+        document.querySelector('.player-' + activePlayer +'-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer +'-panel').classList.remove('active');
+
+    } else {
+    //Next player
     nextPlayer();
+    }
 });
 
 
