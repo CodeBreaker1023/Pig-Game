@@ -14,6 +14,8 @@ var scores, roundScore, activePlayer, gamePlaying;
 
 init();
 
+var lastRoll;
+
 //Here we are using querySelector to change our CSS properties
 //display is the CSS property and 'none' is the value
 document.querySelector('.dice').style.display = 'none';
@@ -39,8 +41,12 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         diceDOM.style.display = 'block';
         diceDOM.src = 'dice-' + dice + '.png';
 
-        // 3. Update the round score IF rolled number is not 1
-        if (dice !== 1) {
+        // 3. Clear score if two 6s are rolled in a row or update the round score IF rolled number is not 1
+        if (dice === 6 && lastRoll ===6) {
+            scores[activePlayer] = 0;
+            document.querySelector('#score-' + activePlayer).textContent = 0;
+            nextPlayer();
+        } else if (dice !== 1) {
             //add score
             roundScore += dice; //i.e. roundScore = roundScore + dice
             document.querySelector('#current-' + activePlayer).textContent = roundScore;
@@ -48,6 +54,8 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
             //next player
             nextPlayer();
         }
+
+        lastRoll = dice;
     }
     
 });
@@ -111,6 +119,7 @@ function init() {
     activePlayer = 0;
     roundScore = 0;
     gamePlaying = true;
+    
 
     document.querySelector('.dice').style.display = 'none';
 
@@ -125,6 +134,7 @@ function init() {
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-0-panel').classList.add('active');
     document.querySelector('.player-1-panel').classList.remove('active');
+    
 }
 
 
@@ -141,3 +151,12 @@ function init() {
 //We call this a getter beceause it gets the value
 // var x = document.querySelector('#score-0').textContent;
 // console.log(x);
+
+/*
+YOUR 3 CHALLENGES
+Change the game to follow these rules:
+
+1. A player loses his ENTIRE score when he rolls two 6 in a row. After that, it's the next player's turn. (Hint: Always save the previous dice roll in a separate variable)
+2. Add an input field to the HTML where players can set the winning score, so that they can change the predefined score of 100. (Hint: you can read that value with the .value property in JavaScript. This is a good oportunity to use google to figure this out :)
+3. Add another dice to the game, so that there are two dices now. The player looses his current score when one of them is a 1. (Hint: you will need CSS to position the second dice, so take a look at the CSS code for the first one.)
+*/
