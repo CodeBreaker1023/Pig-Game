@@ -16,6 +16,8 @@ var lastDice;
 document.querySelector('.btn-roll').addEventListener('click', function() {
     if(gamePlaying) {
         // 1. Random number
+        document.getElementById('dice-1').style.display = 'block';
+        
         var dice1 = Math.floor(Math.random() * 6) + 1;
         var dice2 = Math.floor(Math.random() * 6) + 1;
 
